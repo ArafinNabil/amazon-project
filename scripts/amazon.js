@@ -63,7 +63,7 @@ document.querySelector('.js-products-grid')
  .innerHTML = productsHtml;
 
 //updates the cartQuantity 
-function updateCart(productId) {
+function updateCartQuantity(productId) {
   let cartQuantity = 0;
 
   cart.forEach((item) => {
@@ -99,6 +99,7 @@ document.querySelectorAll('.js-add-to-cart')
       const quantity = Number(quantitySelector.value);
 
       addToCart(productId, quantity);
-      updateCart(productId);
+      updateCartQuantity(productId);
     });
   });
+  updateCartQuantity()

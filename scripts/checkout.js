@@ -107,6 +107,8 @@ document.querySelectorAll('.js-delete-quantity-link')
 
      let container = document.querySelector(`.js-cart-item-container-${productId}`)
      container.remove();
+     // removes count checkout items
+     updateCheckoutQuantity();
     });
  });
 
@@ -123,4 +125,3 @@ export function updateCheckoutQuantity() {
 };
 
 updateCheckoutQuantity();
-
