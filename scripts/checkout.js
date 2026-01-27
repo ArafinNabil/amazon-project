@@ -110,3 +110,17 @@ document.querySelectorAll('.js-delete-quantity-link')
     });
  });
 
+//  update the check out quantity in cart page
+export function updateCheckoutQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  });
+
+  let showTotal = document.querySelector('.js-return-to-home-link');
+  showTotal.innerHTML = `${cartQuantity} items`;
+};
+
+updateCheckoutQuantity();
+
