@@ -1,4 +1,4 @@
-import { cart, removefromCart } from '../data/cart.js'
+import { cart, removefromCart,calculateCartQuantity } from '../data/cart.js'
 import { products } from '../data/products.js';
 import { formtingCurrency } from './utilies/money.js';
 
@@ -37,13 +37,21 @@ cartSummaryHtml += `
           <span>
             Quantity: <span class="quantity-label">${cartItem.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary">
+          <span class="update-quantity-link js-update-quantity-link link-primary"
+            data-product-id="${matchingProduct.id}">
             Update
           </span>
+
+          <input class="quantity-input">
+          <span class="save-quantity-link">
+            save
+          </span>
+          
           <span class="delete-quantity-link link-primary js-delete-quantity-link"
             data-product-id="${matchingProduct.id}">
             Delete
           </span>
+          
         </div>
       </div>
 
@@ -114,14 +122,18 @@ document.querySelectorAll('.js-delete-quantity-link')
 
 //  update the check out quantity in cart page
 export function updateCheckoutQuantity() {
-  let cartQuantity = 0;
-
-  cart.forEach((item) => {
-    cartQuantity += item.quantity;
-  });
+  const cartQuantity = calculateCartQuantity()
 
   let showTotal = document.querySelector('.js-return-to-home-link');
   showTotal.innerHTML = `${cartQuantity} items`;
 };
 
 updateCheckoutQuantity();
+
+let updateElem = document.querySelectorAll('.js-update-quantity-link') 
+updateElem.forEach((item) => {
+  item.addEventListener('click',() => {
+    const productId = item.dataset.productId;
+    console.log(productId)
+  });
+})

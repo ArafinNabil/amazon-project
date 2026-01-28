@@ -64,6 +64,6 @@ export function calculateCartQuantity() {
     cartQuantity += item.quantity;
   });
 
-  document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity ;
+  return cartQuantity;
+
 };
