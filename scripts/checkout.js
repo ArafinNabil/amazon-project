@@ -2,6 +2,15 @@ import { cart, removefromCart, updateQuantity, notifyCartQuantityChanged } from 
 import { products } from '../data/products.js';
 import { formtingCurrency } from './utilies/money.js';
 
+hello();
+
+const today = dayjs()
+const deliveryDate = today.add(7, 'day');
+console.log(deliveryDate)
+
+console.log(deliveryDate.format('dddd, MMMM D'))
+
+
 let cartSummaryHtml = '';
 
 // Generate checkout HTML
