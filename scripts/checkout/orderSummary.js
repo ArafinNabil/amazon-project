@@ -2,7 +2,8 @@ import { cart, removefromCart, updateQuantity, notifyCartQuantityChanged, update
 import { products, getProduct } from '../../data/products.js';
 import { formtingCurrency } from '../utilies/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions } from '../deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption } from '../deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 
 export function renderOrderSummary() {
@@ -17,13 +18,7 @@ cart.forEach((cartItem) => {
 
   const deliveryOptionsId = Number(cartItem.deliveryOptionsId);
 
-  let selectedDeliveryOption = deliveryOptions[0];
-
-  deliveryOptions.forEach(option => {
-    if (option.id === deliveryOptionsId) {
-      selectedDeliveryOption = option;
-    }
-  });
+  let selectedDeliveryOption = getDeliveryOption(deliveryOptionsId);
 
 
   const today = dayjs();
@@ -118,6 +113,7 @@ document.querySelectorAll('.js-delete-quantity-link').forEach(link => {
     const el = document.querySelector(`.js-cart-item-container-${productId}`);
     if (el) el.remove();
     notifyCartQuantityChanged();
+    renderPaymentSummary()
   });
 });
 
@@ -127,6 +123,7 @@ document.querySelectorAll('.js-update-quantity-link').forEach(link => {
     const productId = link.dataset.productId;
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
     if (container) container.classList.toggle('is-editing-quantity');
+    renderPaymentSummary()
   });
 });
 
@@ -157,6 +154,7 @@ document.querySelectorAll('.js-save-link').forEach(link => {
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
     if (container) container.classList.remove('is-editing-quantity');
     notifyCartQuantityChanged();
+        renderPaymentSummary()
   });
 });
 
@@ -168,6 +166,7 @@ document.querySelectorAll('.js-delivery-option')
 
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary()
+          renderPaymentSummary()
     });
   });
 }
