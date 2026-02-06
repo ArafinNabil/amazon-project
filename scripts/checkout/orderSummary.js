@@ -166,7 +166,7 @@ document.querySelectorAll('.js-delivery-option')
 
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary()
-          renderPaymentSummary()
+          renderPaymentSummary();
     });
   });
 }
